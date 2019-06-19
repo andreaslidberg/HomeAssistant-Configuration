@@ -148,7 +148,7 @@ vacuum_litterbox:
           command: app_zoned_clean
           params: [[32147,23812,35597,25262,1]]
 vacuum_all:
-    alias: "Städa överallt"
+    alias: "Städa huset"
     sequence:
       - service: vacuum.start
         data:

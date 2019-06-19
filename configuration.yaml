@@ -472,6 +472,9 @@ google_assistant:
     script.vacuum_litterbox:
       name: 'Städa kattlådorna'
       expose: true
+    script.vacuum_all:
+      name: 'Städa allt'
+      expose: true
     script.viaplay:
       name: Viaplay
       expose: true
