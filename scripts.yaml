@@ -147,4 +147,10 @@ vacuum_litterbox:
           entity_id: vacuum.xiaomi_vacuum_cleaner
           command: app_zoned_clean
           params: [[32147,23812,35597,25262,1]]
+vacuum_all:
+    alias: "Städa överallt"
+    sequence:
+      - service: vacuum.start
+        data:
+          entity_id: vacuum.xiaomi_vacuum_cleaner
 
