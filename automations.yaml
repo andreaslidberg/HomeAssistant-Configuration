@@ -1,0 +1,262 @@
+- id: Weekday_morning
+  alias: Weekday morning
+  trigger:
+  - at: 06:45
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - data:
+      entity_id: light.ambience
+    service: light.turn_on
+  - delay: 02:15:00
+  - data:
+      entity_id: light.ambience
+    service: homeassistant.turn_off
+- id: Weekend_morning
+  alias: Weekend morning
+  trigger:
+  - at: 07:45
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - sat
+    - sun
+  action:
+  - data:
+      entity_id: light.ambience
+    service: light.turn_on
+  - delay: 02:15:00
+  - data:
+      entity_id: light.ambience
+    service: homeassistant.turn_off
+- id: Cloudy_Afternoon
+  alias: Cloudy Afternoon
+  trigger:
+    platform: sun
+    event: sunset
+    offset: -01:30:00
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: group.family
+      state: home
+    - condition: numeric_state
+      entity_id: sensor.yr_cloudiness
+      above: '80'
+  action:
+    service: light.turn_on
+    entity_id: light.ambience
+- id: Afternoon
+  alias: Afternoon
+  trigger:
+    platform: sun
+    event: sunset
+    offset: -00:30:00
+  condition:
+    condition: state
+    entity_id: group.family
+    state: home
+  action:
+    service: light.turn_on
+    entity_id: light.ambience
+- id: NightLight
+  alias: NightLight
+  trigger:
+  - entity_id: binary_sensor.experimental
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - entity_id: light.hallway_desk
+    service: light.turn_on
+  - delay: 00:00:20
+  - entity_id: light.hallway_desk
+    service: light.turn_off
+- action:
+  - data:
+      entity_id: switch.countdown
+    service: switch.turn_on
+  alias: AlarmControl
+  initial_state: false
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.sector_alarm_02519706
+    state: disarmed
+  id: '1523700791768'
+  trigger:
+  - entity_id: group.family
+    from: home
+    platform: state
+    to: not_home
+- id: '1523788155889'
+  alias: WelcomeHome Enni
+  initial_state: false
+  trigger:
+  - entity_id: device_tracker.enni
+    from: not_home
+    platform: state
+    to: home
+  condition: []
+  action:
+  - delay: 00:01:00
+  - data:
+      entity_id: media_player.home_group
+      message: welcome home princess
+    service: tts.google_say
+- id: '1534495946643'
+  alias: Welcome Home Ninni
+  initial_state: false
+  trigger:
+  - entity_id: device_tracker.ninni
+    from: not_home
+    platform: state
+    to: home
+  condition: []
+  action:
+  - delay: 00:01:00
+  - data:
+      entity_id: media_player.home_group
+      message: welcome home my queen
+    service: tts.google_say
+- id: '1534964000830'
+  alias: Coffee_Off
+  trigger:
+    platform: state
+    entity_id: switch.coffee
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - delay: 01:30:00
+  - service: switch.turn_off
+    data:
+      entity_id: switch.coffee
+- id: ios_notif_test
+  alias: Notify iOS app
+  trigger:
+    platform: state
+    entity_id: switch.coffee
+    from: 'off'
+    to: 'on'
+  action:
+  - service: notify.notify_parents
+    data:
+      message: Kaffeapparaten har startat
+      data:
+        push:
+          badge: 5
+- id: ios_group_test
+  alias: Notify iOS group
+  trigger:
+    platform: state
+    entity_id: switch.coffee
+    from: 'on'
+    to: 'off'
+  action:
+  - service: notify.notify_parents
+    data:
+      message: Kaffeapparaten har stängts av
+      data:
+        push:
+          badge: 5
+- id: '1544627025802'
+  alias: Hemkomst
+  trigger:
+  - entity_id: group.family
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+    service: light.turn_on
+    entity_id: light.ambience
+- id: '1546903575337'
+  alias: ActivateHomecoming
+  trigger:
+  - at: 08:00
+    platform: time
+  condition: []
+  action:
+  - data:
+      entity_id: automation.hemkomst
+    service: automation.turn_on
+- id: 'ZoneCleaning'
+  alias: Start Cleaning Room
+  hide_entity: True
+  trigger:
+  - platform: state
+    entity_id: input_select.vacuum_room
+    from: 'Select Input'
+  action:
+  - service: script.turn_on
+    data_template:
+      entity_id: >
+        {% if is_state("input_select.vacuum_room", "bedroom") %}
+          script.vacuum_bedroom
+        {% elif is_state("input_select.vacuum_room", "hallway") %}
+          script.vacuum_hallway
+        {% elif is_state("input_select.vacuum_room", "dining room") %}
+          script.vacuum_dining_room
+        {% elif is_state("input_select.vacuum_room", "kitchen") %}
+          script.vacuum_kitchen
+        {% elif is_state("input_select.vacuum_room", "living room") %}
+          script.vacuum_living_room
+        {% else %}
+        {% endif %}
+  - service: input_select.select_option
+    entity_id: input_select.vacuum_room
+    data_template:
+      option: "Select Input"
+
+- id: VacuumResetDailyRunChecker
+  alias: Reset Daily Vacuum First Run state at midnight
+  trigger:
+  - platform: time
+    at: '0:00:00'
+  action:
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.daily_vacuum_first_run
+
+- id: VacuumDailyCleaning
+  alias: Start Daily Vacuum
+  trigger:
+  - platform: time_pattern
+    minutes: '/45'
+    seconds: 00
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id:  group.family
+      state: 'not_home'
+    - condition: state
+      entity_id: input_boolean.daily_vacuum_first_run
+      state: 'off'
+    - condition: time
+      after: '11:00:00'
+      before: '15:00:00'
+    - condition: state
+      entity_id: input_boolean.disable_daily_vacuum
+      state: 'off'
+  action:
+  - delay: '00:00:15'
+  - service: vacuum.turn_on
+    entity_id: vacuum.xiaomi_vacuum_cleaner
+  - service: homeassistant.turn_on
+    entity_id: input_boolean.daily_vacuum_first_run

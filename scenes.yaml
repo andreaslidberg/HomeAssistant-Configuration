@@ -1,0 +1,15 @@
+  - name: Night
+    entities:
+        light.bedroom_window: off
+        light.dining_room: off
+        light.dining_room_window: off
+        light.enni_window: off
+        light.living_room: off
+        light.living_room_spots: off
+        light.living_room_window: off
+        light.living_room_lightbox: off
+        light.hallway_desk: on
+        switch.coffee: off
+        switch.skalskydd: on
+        automation.hemkomst: off
+        

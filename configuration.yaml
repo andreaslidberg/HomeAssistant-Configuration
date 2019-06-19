@@ -1,0 +1,484 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret home_lat
+  longitude: !secret home_long
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 28
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Stockholm
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Recorder Settings
+recorder:
+  purge_keep_days: 60
+  db_url: !secret recorder_db_url
+
+# Enables the frontend
+frontend:
+
+# Enable configurator plugin in menu
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: !secret configurator_url
+
+# Enables configuration UI
+config:
+
+http:
+  api_password: !secret api_password
+  base_url: !secret base_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+updater:
+
+system_health:
+
+rfxtrx:
+    device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433_A12IY0ZA-if00-port0
+
+#asuswrt:
+#  host: !secret asus_tracker_host
+#  protocol: telnet
+#  port: 23
+#  username: !secret asus_tracker_user
+#  password: !secret asus_tracker_pwd
+##  ssh_key: /config/ssh/ssh_asus_private_key # obs, endast om SSH
+
+
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+zone:
+  - name: School
+    latitude: !secret zone_school_latitude
+    longitude: !secret zone_school_longitude
+    radius: 200
+    icon: mdi:school
+    hidden: false
+    
+  - name: NinniWork
+    latitude: !secret zone_ninni_latitude
+    longitude: !secret zone_ninni_longitude
+    radius: 100
+    icon: mdi:briefcase
+    hidden: false
+    
+  - name: AnteWork
+    latitude: !secret zone_ante_latitude
+    longitude: !secret zone_ante_longitude
+    radius: 100
+    icon: mdi:desktop-classic
+    
+  - name: Bobbo
+    latitude: !secret zone_bobbo_latitude
+    longitude: !secret zone_bobbo_longitude
+    radius: 100
+    icon: mdi:heart
+
+# Weather prediction
+weather:
+  - platform: darksky
+    api_key: !secret darksky_apikey
+    units: si
+    mode: daily
+
+vacuum:
+  - platform: xiaomi_miio
+    host: !secret vacuum_host
+    token: !secret vacuum_token
+    
+sensor:
+  - platform: rfxtrx
+    automatic_add: false
+#  - platform: darksky
+#    api_key: !secret darksky_apikey
+#    language: sv
+#    monitored_conditions:
+#      - summary
+#      - icon
+#      - nearest_storm_distance
+#    forecast:
+  - platform: yr
+    monitored_conditions:
+        - symbol
+        - cloudiness
+  - platform: trafikverket_weatherstation
+    name: 'TV Vrangelsro'
+    api_key: !secret tv_api_key
+    station: 'Vrangelsro'
+    monitored_conditions:
+        - air_temp
+        - precipitation
+        - wind_direction_text
+        - wind_speed
+  - platform: trafikverket_weatherstation
+    name: 'TV Haverdal'
+    api_key: !secret tv_api_key
+    station: 'Brotorpet'
+    monitored_conditions:
+        - air_temp
+        - precipitation
+        - wind_direction_text
+        - wind_speed
+  - platform: trafikverket_weatherstation
+    name: 'TV Östra Stranden'
+    api_key: !secret tv_api_key
+    station: 'Halmstad'
+    monitored_conditions:
+        - air_temp
+        - precipitation
+        - wind_direction_text
+        - wind_speed
+  - platform: template
+    sensors:
+      vacuum_status:
+        friendly_name: Status
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Status: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status }}'
+        icon_template: >
+          {% set val =  states.vacuum.xiaomi_vacuum_cleaner.attributes.status  %}
+          {% if val == 'Charging' %}
+            mdi:battery-charging
+          {% elif val == 'Cleaning' %}
+            mdi:move-resize
+          {% elif val == 'Returning home' %}
+            mdi:keyboard-return
+          {% elif val == 'Idle' %}
+            mdi:dots-horizontal
+          {% elif val == 'Paused' %}
+            mdi:pause-circle
+          {% else %}
+            mdi:help-circle
+          {% endif %}
+      vacuum_fan_speed:
+        friendly_name: Fan Speed
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Mode: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.fan_speed }}'
+        icon_template: 'mdi:speedometer'
+      vacuum_battery:
+        friendly_name: Vacuum Battery
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Battery: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level }}'
+        unit_of_measurement: '%'
+        icon_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_icon }}'
+      vacuum_cleaning_time:
+        friendly_name: Time of Last Cycle
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time }}'
+        icon_template: 'mdi:timer'
+      vacuum_cleaned_area:
+        friendly_name: Area of Last Cycle
+        unit_of_measurement: 'm ²'
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaned_area }}'
+        icon_template: 'mdi:ruler'
+      vacuum_cleanmainbrush:
+        friendly_name: Replace main brush
+        unit_of_measurement: 'h'
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Main Brush: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.main_brush_left }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_cleansidebrush:
+        friendly_name: Replace side brush
+        unit_of_measurement: 'h'
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Side brush: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.side_brush_left }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_cleanfilter:
+        friendly_name: Replace filter
+        unit_of_measurement: 'h'
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Filter: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.filter_left }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_sensordirtyleft:
+        friendly_name: Replace filter
+        unit_of_measurement: 'h'
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Sensor: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.sensor_dirty_left }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_do_not_disturb:
+        friendly_name: Do Not Disturb
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.do_not_disturb }}'
+        icon_template: >
+          {% set val =  states.vacuum.xiaomi_vacuum_cleaner.attributes.do_not_disturb  %}
+          {% if val == 'on' %}
+            mdi:do-not-disturb
+          {% else %}
+            mdi:do-not-disturb-off
+          {% endif %}
+      vacuum_operation:
+        value_template: 'Operation'
+      vacuum_accessories:
+        value_template: 'Maintenance'
+
+input_boolean:
+  daily_vacuum_first_run:
+    name: Daily Vacuum First Run
+    initial: 'off'
+  disable_daily_vacuum:
+    name: Disable Daily Vacuum Automation
+    initial: 'off'
+  disable_dustbin_notification:
+    name: Disable Dustbin Notification
+    initial: 'off'
+
+input_select:
+  vacuum_room:
+    name: Choose a room to clean
+    options:
+      - Select Input
+      - bedroom
+      - hallway
+      - dining room
+      - kitchen
+      - living room
+
+
+binary_sensor:
+  platform: rfxtrx
+  automatic_add: false
+  devices:
+    '071001014d090140':
+      name: experimental
+
+cover:
+  - platform: rfxtrx
+    automatic_add: true
+#    signal_repetitions: 8
+    devices:
+      '09190603010101110000':   #Device ID i RfxMgmt: 01 01 01 01 01 1
+        name: blinds
+    
+light:
+  - platform: rfxtrx
+    automatic_add: false
+    devices:
+        '0b11000001b520f601010f60':
+            name: living_room_window
+        '0b11000001b521f601010f60':
+            name: living_room_spots
+        '0b11000101b510f602010f60':
+            name: bedroom_window
+        '07100a0041010000':
+            name: living_room
+        '07100a0041020000':
+            name: dining_room
+        '0b11000001b5892a01010f60':
+            name: dining_room_window
+        '0b11000101b5892a02010f60':
+            name: enni_window
+        '0b11000101b520f602010f60':
+            name: hallway_desk
+        '0b11000201b5892a03010f60':
+            name: living_room_lightbox
+  - platform: group
+    name: all_windows
+    entities:
+      - light.living_room_window
+      - light.bedroom_window
+      - light.dining_room_window
+      - light.hallway_desk
+      - light.enni_window
+  - platform: group
+    name: ambience
+    entities:
+      - light.living_room_window
+      - light.bedroom_window
+      - light.dining_room_window
+      - light.hallway_desk
+      - light.enni_window
+      - light.living_room_lightbox
+  - platform: group
+    name: window_lights
+    entities:
+      - light.enni_window
+      - light.bedroom_window
+      - light.living_room_window
+      - light.dining_room_window
+      - light.hallway_desk
+      
+      
+# Sector Alarm integration
+sector_alarm:
+  email: !secret sector_email
+  password: !secret sector_password
+  alarm_id: !secret sector_alarm_id
+  code: !secret sector_code
+  thermometers: false
+  alarm_panel: true
+
+# Presence Tracking
+device_tracker:
+  - platform: mikrotik
+    host: !secret tracker_host1
+    username: !secret tracker_user
+    password: !secret tracker_pwd
+    interval_seconds: 10
+    consider_home: 180
+    track_new_devices: no
+  - platform: mikrotik
+    host: !secret tracker_host2
+    username: !secret tracker_user
+    password: !secret tracker_pwd
+    interval_seconds: 10
+    consider_home: 180
+    track_new_devices: no
+#  - platform: asuswrt
+#    interval_seconds: 10
+#    consider_home: 180
+#    track_new_devices: no
+#  - platform: googlehome
+#    host: 192.168.0.61
+#    rssi_threshold: -90
+#  - platform: googlehome
+#    host: 192.168.0.62
+#    rssi_threshold: -90
+    
+# Text to speech
+tts:
+  - platform: google_translate
+    service_name: google_say
+  
+# notifications
+notify:
+  - name: notify_parents
+    platform: group
+    services:
+      - service: ios_andreas_iphone
+      - service: ios_ninnis_iphone
+#  - name: Notify_Kids
+#    platform: group
+#    services:
+#      - service: ennis_iphone
+#  - name: Notify_Family
+#    platform: group
+#    services:
+#      - service: andreas_iphone
+#      - service: ninnis_iphone
+#      - service: ennis_iphone
+      
+# Cloud
+cloud:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+switch:
+  - platform: template
+    switches:
+      countdown:
+        value_template: "{% if is_state('switch.teststatus', 'on') %}on{% else %}off{% endif %}"
+        turn_on:
+          service: script.turn_on
+          entity_id: script.countdown
+        turn_off:
+          service: script.turn_off
+          entity_id: script.countdown
+      skalskydd:
+        value_template: "{% if is_state('alarm_control_panel.sector_alarm_02519706', 'armed_home') %}on{% else %}off{% endif %}"
+        turn_on:
+          service: script.turn_on
+          entity_id: script.skalskydd_on
+        turn_off:
+          service: script.turn_on
+          entity_id: script.skalskydd_off
+  - platform: rfxtrx
+    automatic_add: false
+    devices:
+        '0b11000001b510f601010f60':
+            name: coffee
+            
+        
+    
+
+
+google_assistant:
+  project_id: !secret gh_project_id
+  api_key: !secret gh_api_key
+  exposed_domains:
+    - light
+    - scene
+  entity_config:
+    switch.countdown:
+      name: Countdown
+      expose: true
+    switch.skalskydd:
+      name: Skalskydd
+      expose: true
+    switch.coffee:
+      name: Coffee
+      expose: true
+    script.netflix:
+      name: Netflix
+      expose: true
+    script.hbo:
+      name: HBO
+      expose: true
+    script.vacuum_bedroom:
+      name: 'Städa sovrummet'
+      expose: true
+    script.vacuum_living_room:
+      name: 'Städa vardagsrummet'
+      expose: true
+    script.vacuum_dining_room:
+      name: 'Städa matsalen'
+      expose: true
+    script.vacuum_hallway:
+      name: 'Städa hallen'
+      expose: true
+    script.vacuum_kitchen:
+      name: 'Städa köket'
+      expose: true
+    script.vacuum_litterbox:
+      name: 'Städa kattlådorna'
+      expose: true
+    script.viaplay:
+      name: Viaplay
+      expose: true
+    scene.night:
+      name: night
+      expose: true
+
+# Enables iOS component for iPhone App
+ios:
+

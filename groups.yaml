@@ -1,0 +1,87 @@
+### VIEWS ###
+  family_view:
+    name: Family
+    view: yes
+    entities:
+      - group.parents
+      - group.kids
+  scripts:
+    name: Scripts
+    view: yes
+    entities:
+      - script.countdown
+      - script.hbo
+      - script.netflix
+      - script.viaplay
+      - script.skalskydd_on
+      - script.skalskydd_off
+  scenes:
+    name: Scenes
+    view: yes
+    entities:
+      - scene.night
+  batteries:
+    name: Batteries
+    view: yes
+    entities:
+      - sensor.andreas_iphone_battery_level
+      - sensor.ninnis_iphone_battery_level
+      - sensor.ennis_iphone_battery_level
+      
+### GROUPS ###
+  family:
+    name: Family
+    entities:
+      - group.Andreas
+      - group.Ninni
+      - device_tracker.Enni
+      - device_tracker.Mika
+  parents:
+    name: Parents
+    entities:
+      - group.Ninni
+      - group.Andreas
+  kids:
+    name: Kids
+    entities:
+      - device_tracker.Mika
+      - device_tracker.Enni
+      
+  andreas:
+    name: Andreas
+    entities:
+      - device_tracker.andreas_wifi
+      - device_tracker.andreas_bt_gh1
+      - device_tracker.andreas_bt_gh2
+
+  ninni:
+    name: Ninni
+    entities:
+      - device_tracker.ninni_wifi
+      - device_tracker.ninni_bt_gh1
+      - device_tracker.ninni_bt_gh2
+
+      
+### Lights ###
+# Kolla under lights i configuration.yaml
+
+### GUI Grouping ###
+  environment:
+    name: Environment
+    entities:
+      - sun.sun
+      - sensor.yr_symbol
+      - sensor.yr_cloudiness
+      - sensor.tv_vrangelsro_air_temperature
+      - sensor.tv_vrangelsro_wind_speed
+      - sensor.tv_vrangelsro_wind_direction_text
+      - sensor.tv_vrangelsro_precipitation_type
+      - sensor.tv_haverdal_air_temperature
+      - sensor.tv_haverdal_wind_speed
+      - sensor.tv_haverdal_wind_direction_text
+      - sensor.tv_haverdal_precipitation_type
+      - sensor.tv_ostra_stranden_air_temperature
+      - sensor.tv_ostra_stranden_wind_speed
+      - sensor.tv_ostra_stranden_wind_direction_text
+      - sensor.tv_ostra_stranden_precipitation_type
+

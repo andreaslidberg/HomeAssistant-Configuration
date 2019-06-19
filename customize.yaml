@@ -1,0 +1,76 @@
+device_tracker.andreas:
+  icon: mdi:zodiac-libra
+  source_type: phone
+device_tracker.ninni:
+  icon: mdi:zodiac-leo
+  source_type: phone
+device_tracker.enni:
+  icon: mdi:zodiac-pisces
+  source_type: phone
+alarm_control_panel.sector_alarm_02519706:
+  friendly_name: Sector Alarm
+device_tracker.30074db95054:
+  hidden: true
+device_tracker.7cd1c3ebc977:
+  hidden: true
+device_tracker.d4258b9e73de:
+  hidden: true
+device_tracker.b0702de2b303:
+  hidden: true
+device_tracker.mika:
+  friendly_name: Mika
+  icon: mdi:zodiac-capricorn
+  source_type: phone
+device_tracker.48d6d5e9bd35:
+  hidden: true
+device_tracker.a45e60c4a22f:
+  hidden: true
+device_tracker.f8da0c6b10d7:
+  hidden: true
+switch.alarm_arming:
+  friendly_name: Alarm Arming
+sensor.andreas_iphone_battery_state:
+  hidden: true
+sensor.ninnis_iphone_battery_state:
+  hidden: true
+sensor.ennis_iphone_battery_state:
+  hidden: true
+switch.ljus_vardagsrum: {}
+switch.ljus_matsal: {}
+switch.coffee:
+  icon: mdi:kettle
+switch.skalskydd:
+  icon: mdi:security-home
+switch.countdown: {}
+script.hbo:
+  icon: mdi:television-classic
+script.viaplay:
+  icon: mdi:television-classic
+script.netflix:
+  icon: mdi:television-classic
+device_tracker.enni_old:
+  hidden: true
+device_tracker.mika_old:
+  hidden: true
+light.all_windows:
+  friendly_name: Fönster
+light.dining_room:
+  friendly_name: Matsal
+light.living_room:
+  friendly_name: Vardagsrum
+light.enni_window:
+  friendly_name: Ennis fönster
+light.bedroom_window:
+  friendly_name: Sovrumsfönster
+light.living_room_window:
+  friendly_name: Vardagsrumsfönster
+light.dining_room_window:
+  friendly_name: Matsalsfönster
+light.hallway_desk:
+  friendly_name: Hallbyrån
+group.andreas:
+  icon: mdi:zodiac-libra
+group.ninni:
+  icon: mdi:zodiac-leo
+light.living_room_spots:
+  friendly_name: Vardagsrum spottar
