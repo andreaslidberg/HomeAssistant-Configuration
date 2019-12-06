@@ -21,7 +21,7 @@ countdown:
     service: tts.google_say
   - delay: 00:01:00
   - data:
-      code: !secret sector_code
+      code: '2589'
       entity_id: alarm_control_panel.sector_alarm_02519706
     service: alarm_control_panel.alarm_arm_away
   - data:
@@ -32,7 +32,7 @@ skalskydd_on:
   sequence:
   - alias: ''
     data:
-      code: !secret sector_code
+      code: '2589'
       entity_id: alarm_control_panel.sector_alarm_02519706
     service: alarm_control_panel.alarm_arm_home
 skalskydd_off:
@@ -40,7 +40,7 @@ skalskydd_off:
   sequence:
   - alias: ''
     data:
-      code: !secret sector_code
+      code: '2589'
       entity_id: alarm_control_panel.sector_alarm_02519706
     service: alarm_control_panel.alarm_disarm
 netflix:
@@ -81,7 +81,7 @@ blackops4:
   - service: script.start_ps4
   - data:
       entity_id: media_player.playstation_4
-      source: Black Ops 4
+      source: 'Black Ops 4'
     service: media_player.select_source
 blackops3:
   alias: Black Ops 3
@@ -89,7 +89,7 @@ blackops3:
   - service: script.start_ps4
   - data:
       entity_id: media_player.playstation_4
-      source: Black Ops 3
+      source: 'Black Ops 3'
     service: media_player.select_source
 start_ps4:
   sequence:
@@ -100,57 +100,91 @@ start_ps4:
     service: media_player.turn_on
   - delay: 00:00:30
 vacuum_bedroom:
-    alias: "Städa sovrummet"
-    sequence:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          command: app_zoned_clean
-          params: [[17500,18000,21800,21000,1]]
+  alias: Städa sovrummet
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 17500
+        - 18000
+        - 21800
+        - 21000
+        - 1
 vacuum_dining_room:
-    alias: "Städa matsalen"
-    sequence:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          command: app_zoned_clean
-          params: [[22001,19809,26401,24909,1]]
+  alias: Städa matsalen
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 22001
+        - 19809
+        - 26401
+        - 24909
+        - 1
 vacuum_kitchen:
-    alias: "Städa köket"
-    sequence:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          command: app_zoned_clean
-          params: [[26414,21504,31614,25204,1]]
+  alias: Städa köket
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 26414
+        - 21504
+        - 31614
+        - 25204
+        - 1
 vacuum_living_room:
-    alias: "Städa vardagsrummet"
-    sequence:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          command: app_zoned_clean
-          params: [[17283,24749,26533,30199,1]]
+  alias: Städa vardagsrummet
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 17283
+        - 24749
+        - 26533
+        - 30199
+        - 1
 vacuum_hallway:
-    alias: "Städa hallen"
-    sequence:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          command: app_zoned_clean
-          params: [[26492,25218,32992,28368,1],[32138,23869,33138,25319,1]]
+  alias: Städa hallen
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 26492
+        - 25218
+        - 32992
+        - 28368
+        - 1
+      - - 32138
+        - 23869
+        - 33138
+        - 25319
+        - 1
 vacuum_litterbox:
-    alias: "Städa kattlådorna"
-    sequence:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          command: app_zoned_clean
-          params: [[32147,23812,35597,25262,1]]
+  alias: Städa kattlådorna
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 32147
+        - 23812
+        - 35597
+        - 25262
+        - 1
 vacuum_all:
-    alias: "Städa huset"
-    sequence:
-      - service: vacuum.start
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-
+  alias: Städa huset
+  sequence:
+  - service: vacuum.start
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner

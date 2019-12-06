@@ -4,6 +4,8 @@
 resources:
   - url: /local/vertical-stack-in-card.js?v=0.1.2
     type: js
+  - url: /local/monster-card.js
+    type: js
 title: Home
 views:
   - title: Home
@@ -142,6 +144,7 @@ views:
           - automation.weekday_morning
           - automation.welcome_home_ninni
           - automation.welcomehome_enni
+          - group.all_automations
   - title: Family
     cards:
       - type: entities

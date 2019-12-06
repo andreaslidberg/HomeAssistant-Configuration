@@ -12,6 +12,21 @@ homeassistant:
   time_zone: Europe/Stockholm
   # Customization file
   customize: !include customize.yaml
+  # Authentication providers
+  auth_providers:
+   - type: homeassistant
+   - type: legacy_api_password
+     api_password: !secret api_password
+
+
+# Simple Service Discovery Protocol
+ssdp:
+  
+# Person support for tracking
+person:
+  
+# Activation for new mobile app/companion
+mobile_app:
 
 # Show links to resources in log and frontend
 #introduction:
@@ -25,17 +40,19 @@ recorder:
 frontend:
 
 # Enable configurator plugin in menu
-panel_iframe:
-  configurator:
-    title: Configurator
-    icon: mdi:wrench
-    url: !secret configurator_url
+#panel_iframe:
+#  configurator:
+#    title: Configurator
+#    icon: mdi:wrench
+#    url: !secret configurator_url
 
 # Enables configuration UI
 config:
 
+
+
 http:
-  api_password: !secret api_password
+#  api_password: !secret api_password
   base_url: !secret base_url
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
@@ -47,12 +64,17 @@ system_health:
 rfxtrx:
     device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433_A12IY0ZA-if00-port0
 
-#asuswrt:
-#  host: !secret asus_tracker_host
-#  protocol: telnet
-#  port: 23
-#  username: !secret asus_tracker_user
-#  password: !secret asus_tracker_pwd
+asuswrt:
+  host: !secret asus_tracker_host
+  protocol: telnet
+  port: 23
+  username: !secret asus_tracker_user
+  password: !secret asus_tracker_pwd
+  sensors:
+    - upload
+    - download
+    - upload_speed
+    - download_speed
 ##  ssh_key: /config/ssh/ssh_asus_private_key # obs, endast om SSH
 
 
@@ -346,25 +368,45 @@ sector_alarm:
   alarm_panel: true
 
 # Presence Tracking
+mikrotik:
+# AP i Hallen
+  - host: !secret tracker_host1
+    username: !secret tracker_user
+    password: !secret tracker_pwd
+    login_method: plain
+    track_devices: true
+# AP i Xboxrummet    
+  - host: !secret tracker_host2
+    username: !secret tracker_user
+    password: !secret tracker_pwd
+    login_method: plain
+    track_devices: true
+
 device_tracker:
-  - platform: mikrotik
-    host: !secret tracker_host1
-    username: !secret tracker_user
-    password: !secret tracker_pwd
-    interval_seconds: 10
-    consider_home: 180
-    track_new_devices: no
-  - platform: mikrotik
-    host: !secret tracker_host2
-    username: !secret tracker_user
-    password: !secret tracker_pwd
-    interval_seconds: 10
-    consider_home: 180
-    track_new_devices: no
+# AP i Hallen
+#  - platform: mikrotik
+#    host: !secret tracker_host1
+#    username: !secret tracker_user
+#    password: !secret tracker_pwd
+#    login_method: plain
+#    interval_seconds: 10
+#    consider_home: 180
+#    track_new_devices: no
+# AP i Xboxrummet    
+#  - platform: mikrotik
+#    host: !secret tracker_host2
+#    username: !secret tracker_user
+#    password: !secret tracker_pwd
+#    login_method: plain
+#    interval_seconds: 10
+#    consider_home: 180
+#    track_new_devices: no
+# ASUS Router
 #  - platform: asuswrt
 #    interval_seconds: 10
 #    consider_home: 180
 #    track_new_devices: no
+# Google Home Trackers
 #  - platform: googlehome
 #    host: 192.168.0.61
 #    rssi_threshold: -90

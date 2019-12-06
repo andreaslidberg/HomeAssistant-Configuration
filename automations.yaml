@@ -242,9 +242,9 @@
   condition:
     condition: and
     conditions:
-    - condition: state
-      entity_id:  group.family
-      state: 'not_home'
+#    - condition: state
+#      entity_id:  group.family
+#      state: not_home
     - condition: state
       entity_id: input_boolean.daily_vacuum_first_run
       state: 'off'
@@ -256,7 +256,49 @@
       state: 'off'
   action:
   - delay: '00:00:15'
-  - service: vacuum.turn_on
+  - service: vacuum.start
     entity_id: vacuum.xiaomi_vacuum_cleaner
   - service: homeassistant.turn_on
     entity_id: input_boolean.daily_vacuum_first_run
+    
+- id: IOSActivateNight
+  alias: "IOS Activate Night"
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: 'Bed Time'
+  action:
+    service: scene.turn_on
+    entity_id: scene.night
+    
+- id: IOSLightAll
+  alias: "IOS Light All"
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: 'Lights on'
+  action:
+    service: homeassistant.turn_on
+    entity_id: group.all_lights
+    
+- id: IOSCoffeeOn
+  alias: "IOS Coffee On"
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: 'Coffee'
+  action:
+    service: switch.turn_on
+    entity_id: switch.coffee
+    
+    
+    
+    
+    
+    
