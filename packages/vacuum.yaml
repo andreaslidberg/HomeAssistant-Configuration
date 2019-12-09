@@ -1,0 +1,297 @@
+homeassistant:
+##################################################################################
+# Base activation of Vacuum component for Xiaomi vacuum
+##################################################################################
+  vacuum:
+  - platform: xiaomi_miio
+    host: !secret vacuum_host
+    token: !secret vacuum_token
+
+##################################################################################
+# Sensors
+##################################################################################
+  sensor:
+  - platform: template
+    sensors:
+      vacuum_status:
+        friendly_name: Status
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Status: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status }}'
+        icon_template: >
+          {% set val =  states.vacuum.xiaomi_vacuum_cleaner.attributes.status  %}
+          {% if val == 'Charging' %}
+            mdi:battery-charging
+          {% elif val == 'Cleaning' %}
+            mdi:move-resize
+          {% elif val == 'Returning home' %}
+            mdi:keyboard-return
+          {% elif val == 'Idle' %}
+            mdi:dots-horizontal
+          {% elif val == 'Paused' %}
+            mdi:pause-circle
+          {% else %}
+            mdi:help-circle
+          {% endif %}
+      vacuum_fan_speed:
+        friendly_name: Fan Speed
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Mode: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.fan_speed }}'
+        icon_template: 'mdi:speedometer'
+      vacuum_battery:
+        friendly_name: Vacuum Battery
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Battery: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level }}'
+        unit_of_measurement: '%'
+        icon_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_icon }}'
+      vacuum_cleaning_time:
+        friendly_name: Time of Last Cycle
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time }}'
+        icon_template: 'mdi:timer'
+      vacuum_cleaned_area:
+        friendly_name: Area of Last Cycle
+        unit_of_measurement: 'm ²'
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaned_area }}'
+        icon_template: 'mdi:ruler'
+      vacuum_cleanmainbrush:
+        friendly_name: Replace main brush
+        unit_of_measurement: 'h'
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Main Brush: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.main_brush_left }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_cleansidebrush:
+        friendly_name: Replace side brush
+        unit_of_measurement: 'h'
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Side brush: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.side_brush_left }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_cleanfilter:
+        friendly_name: Replace filter
+        unit_of_measurement: 'h'
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Filter: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.filter_left }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_sensordirtyleft:
+        friendly_name: Replace filter
+        unit_of_measurement: 'h'
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: 'Sensor: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.sensor_dirty_left }}'
+        icon_template: 'mdi:screwdriver'
+      vacuum_do_not_disturb:
+        friendly_name: Do Not Disturb
+        entity_id:
+          - vacuum.xiaomi_vacuum_cleaner
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.do_not_disturb }}'
+        icon_template: >
+          {% set val =  states.vacuum.xiaomi_vacuum_cleaner.attributes.do_not_disturb  %}
+          {% if val == 'on' %}
+            mdi:do-not-disturb
+          {% else %}
+            mdi:do-not-disturb-off
+          {% endif %}
+      vacuum_operation:
+        value_template: 'Operation'
+      vacuum_accessories:
+        value_template: 'Maintenance'
+
+##################################################################################
+# Variables 
+##################################################################################
+# Bool
+input_boolean:
+  daily_vacuum_first_run:
+    name: Daily Vacuum First Run
+    initial: 'off'
+  disable_daily_vacuum:
+    name: Disable Daily Vacuum Automation
+    initial: 'off'
+  disable_dustbin_notification:
+    name: Disable Dustbin Notification
+    initial: 'off'
+
+# Input Select
+input_select:
+  vacuum_room:
+    name: Choose a room to clean
+    options:
+      - Select Input
+      - bedroom
+      - hallway
+      - dining room
+      - kitchen
+      - living room
+
+##################################################################################
+# Automations 
+##################################################################################
+  automation:
+
+# Zone Cleaning, started through Select Box 
+  - id: 'ZoneCleaning'
+    alias: Start Cleaning Room
+    hide_entity: True
+    trigger:
+    - platform: state
+      entity_id: input_select.vacuum_room
+      from: 'Select Input'
+    action:
+    - service: script.turn_on
+      data_template:
+        entity_id: >
+          {% if is_state("input_select.vacuum_room", "bedroom") %}
+            script.vacuum_bedroom
+          {% elif is_state("input_select.vacuum_room", "hallway") %}
+            script.vacuum_hallway
+          {% elif is_state("input_select.vacuum_room", "dining room") %}
+            script.vacuum_dining_room
+          {% elif is_state("input_select.vacuum_room", "kitchen") %}
+            script.vacuum_kitchen
+          {% elif is_state("input_select.vacuum_room", "living room") %}
+            script.vacuum_living_room
+          {% else %}
+          {% endif %}
+    - service: input_select.select_option
+      entity_id: input_select.vacuum_room
+      data_template:
+        option: "Select Input"
+
+# Reset Daily Cleaning
+  - id: VacuumResetDailyRunChecker
+    alias: Reset Daily Vacuum First Run state at midnight
+    trigger:
+    - platform: time
+      at: '0:00:00'
+    action:
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.daily_vacuum_first_run
+
+# Start daily Cleaning
+  - id: VacuumDailyCleaning
+    alias: Start Daily Vacuum
+    trigger:
+    - platform: time_pattern
+      minutes: '/45'
+      seconds: 00
+    condition:
+      condition: and
+      conditions:
+      - condition: state
+        entity_id: input_boolean.daily_vacuum_first_run
+        state: 'off'
+      - condition: time
+        after: '11:00:00'
+        before: '15:00:00'
+      - condition: state
+        entity_id: input_boolean.disable_daily_vacuum
+        state: 'off'
+    action:
+    - delay: '00:00:15'
+    - service: vacuum.start
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.daily_vacuum_first_run
+
+##################################################################################
+# Scripts for Zone Cleaning - Exposed via Google home
+##################################################################################
+
+scripts:
+  vacuum_bedroom:
+    alias: Städa sovrummet
+    sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params:
+        - - 17500
+          - 18000
+          - 21800
+          - 21000
+          - 1
+  vacuum_dining_room:
+    alias: Städa matsalen
+    sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params:
+        - - 22001
+          - 19809
+          - 26401
+          - 24909
+          - 1
+  vacuum_kitchen:
+    alias: Städa köket
+    sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params:
+        - - 26414
+          - 21504
+          - 31614
+          - 25204
+          - 1
+  vacuum_living_room:
+    alias: Städa vardagsrummet
+    sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params:
+        - - 17283
+          - 24749
+          - 26533
+          - 30199
+          - 1
+  vacuum_hallway:
+    alias: Städa hallen
+    sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params:
+        - - 26492
+          - 25218
+          - 32992
+          - 28368
+          - 1
+        - - 32138
+          - 23869
+          - 33138
+          - 25319
+          - 1
+  vacuum_litterbox:
+    alias: Städa kattlådorna
+    sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params:
+        - - 32147
+          - 23812
+          - 35597
+          - 25262
+          - 1
+  vacuum_all:
+    alias: Städa huset
+    sequence:
+    - service: vacuum.start
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
