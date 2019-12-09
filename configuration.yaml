@@ -17,6 +17,7 @@ homeassistant:
    - type: homeassistant
    - type: legacy_api_password
      api_password: !secret api_password
+  packages: !include_dir_named packages
 
 
 # Simple Service Discovery Protocol
@@ -59,8 +60,6 @@ http:
 
 updater:
 system_health:
-
-packages: !include_dir_named packages
 
 rfxtrx:
     device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433_A12IY0ZA-if00-port0
