@@ -134,7 +134,6 @@ input_select:
 # Automations 
 ##################################################################################
 automation:
-
 # Zone Cleaning, started through Select Box 
 - id: 'ZoneCleaning'
   alias: Start Cleaning Room
@@ -203,7 +202,7 @@ automation:
 ##################################################################################
 # Scripts for Zone Cleaning - Exposed via Google home
 ##################################################################################
-scripts:
+script:
   vacuum_bedroom:
     alias: Städa sovrummet
     sequence:
