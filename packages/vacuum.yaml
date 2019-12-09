@@ -119,7 +119,7 @@ homeassistant:
       name: Disable Dustbin Notification
       initial: 'off'
 
- # Input Select
+# Input Select
   input_select:
     vacuum_room:
       name: Choose a room to clean
