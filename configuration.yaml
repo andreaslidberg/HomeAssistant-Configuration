@@ -236,16 +236,6 @@ light:
       - light.living_room_window
       - light.dining_room_window
       - light.hallway_desk
-      
-      
-# Sector Alarm integration
-#sector_alarm:
-#  email: !secret sector_email
-#  password: !secret sector_password
-#  alarm_id: !secret sector_alarm_id
-#  code: !secret sector_code
-#  thermometers: false
-#  alarm_panel: true
 
 # Presence Tracking
 mikrotik:
@@ -326,33 +316,11 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 switch:
-#  - platform: template
-#    switches:
-#      countdown:
-#        value_template: "{% if is_state('switch.teststatus', 'on') %}on{% else %}off{% endif %}"
-#        turn_on:
-#          service: script.turn_on
-#          entity_id: script.countdown
-#        turn_off:
-#          service: script.turn_off
-#          entity_id: script.countdown
-#      skalskydd:
-#        value_template: "{% if is_state('alarm_control_panel.sector_alarm_02519706', 'armed_home') %}on{% else %}off{% endif %}"
-#        turn_on:
-#          service: script.turn_on
-#          entity_id: script.skalskydd_on
-#        turn_off:
-#          service: script.turn_on
-#          entity_id: script.skalskydd_off
   - platform: rfxtrx
     automatic_add: false
     devices:
         '0b11000001b510f601010f60':
             name: coffee
-            
-        
-    
-
 
 google_assistant:
   project_id: !secret gh_project_id
