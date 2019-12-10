@@ -1,5 +1,5 @@
 ##################################################################################
-# Base activation of Vacuum component for Xiaomi vacuum
+# Base activation of Sector Alarm component
 ##################################################################################
 sector_alarm:
   email: !secret sector_email
@@ -68,7 +68,7 @@ automation:
     service: switch.turn_on
 
 ##################################################################################
-# Scripts for Zone Cleaning - Exposed via Google home
+# Scripts
 ##################################################################################
 script:
   countdown:
