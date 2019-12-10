@@ -1,0 +1,118 @@
+##################################################################################
+# Base activation of Vacuum component for Xiaomi vacuum
+##################################################################################
+sector_alarm:
+  email: !secret sector_email
+  password: !secret sector_password
+  alarm_id: !secret sector_alarm_id
+  code: !secret sector_code
+  thermometers: false
+  alarm_panel: true
+
+##################################################################################
+# Switch
+##################################################################################
+switch:
+  - platform: template
+    switches:
+      countdown:
+        value_template: "{% if is_state('switch.teststatus', 'on') %}on{% else %}off{% endif %}"
+        turn_on:
+          service: script.turn_on
+          entity_id: script.countdown
+        turn_off:
+          service: script.turn_off
+          entity_id: script.countdown
+      skalskydd:
+        value_template: "{% if is_state('alarm_control_panel.sector_alarm_02519706', 'armed_home') %}on{% else %}off{% endif %}"
+        turn_on:
+          service: script.turn_on
+          entity_id: script.skalskydd_on
+        turn_off:
+          service: script.turn_on
+          entity_id: script.skalskydd_off
+
+##################################################################################
+# Sensors
+##################################################################################
+#sensor:
+
+##################################################################################
+# Variables 
+##################################################################################
+# Bool
+#input_boolean:
+
+# Input Select
+#input_select:
+
+##################################################################################
+# Automations 
+##################################################################################
+automation:
+- id: '1523700791768'
+  alias: AlarmControl
+  initial_state: false
+  trigger:
+  - entity_id: group.family
+    from: home
+    platform: state
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.sector_alarm_02519706
+    state: disarmed
+  action:
+  - data:
+      entity_id: switch.countdown
+    service: switch.turn_on
+
+##################################################################################
+# Scripts for Zone Cleaning - Exposed via Google home
+##################################################################################
+script:
+  countdown:
+    alias: CountDown
+    sequence:
+    - data:
+        entity_id: media_player.home_group
+        volume_level: '0.8'
+      service: media_player.volume_set
+    - data:
+        entity_id: media_player.home_group
+        message: Alarm will be activated in ten minutes
+      service: tts.google_say
+    - delay: 00:05:00
+    - data:
+        entity_id: media_player.home_group
+        message: Alarm will be activated in five minutes
+      service: tts.google_say
+    - delay: 00:04:00
+    - data:
+        entity_id: media_player.home_group
+        message: Alarm will be activated in one minute
+      service: tts.google_say
+    - delay: 00:01:00
+    - data:
+        code: !secret sector_code
+        entity_id: alarm_control_panel.sector_alarm_02519706
+      service: alarm_control_panel.alarm_arm_away
+    - data:
+        entity_id: switch.countdown
+      service: switch.turn_off
+  skalskydd_on:
+    alias: Skalskydd på
+    sequence:
+    - alias: ''
+      data:
+        code: !secret sector_code
+        entity_id: alarm_control_panel.sector_alarm_02519706
+      service: alarm_control_panel.alarm_arm_home
+  skalskydd_off:
+    alias: Skalskydd av
+    sequence:
+    - alias: ''
+      data:
+        code: !secret sector_code
+        entity_id: alarm_control_panel.sector_alarm_02519706
+      service: alarm_control_panel.alarm_disarm

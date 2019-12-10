@@ -85,22 +85,22 @@
   - delay: 00:00:20
   - entity_id: light.hallway_desk
     service: light.turn_off
-- action:
-  - data:
-      entity_id: switch.countdown
-    service: switch.turn_on
-  alias: AlarmControl
-  initial_state: false
-  condition:
-  - condition: state
-    entity_id: alarm_control_panel.sector_alarm_02519706
-    state: disarmed
-  id: '1523700791768'
-  trigger:
-  - entity_id: group.family
-    from: home
-    platform: state
-    to: not_home
+#- action:
+#  - data:
+#      entity_id: switch.countdown
+#    service: switch.turn_on
+#  alias: AlarmControl
+#  initial_state: false
+#  condition:
+#  - condition: state
+#    entity_id: alarm_control_panel.sector_alarm_02519706
+#    state: disarmed
+#  id: '1523700791768'
+#  trigger:
+#  - entity_id: group.family
+#    from: home
+#    platform: state
+#    to: not_home
 - id: '1523788155889'
   alias: WelcomeHome Enni
   initial_state: false
