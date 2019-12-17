@@ -180,45 +180,51 @@
   - data:
       entity_id: automation.hemkomst
     service: automation.turn_on
- 
 - id: IOSActivateNight
-  alias: "IOS Activate Night"
+  alias: IOS Activate Night
   initial_state: true
   trigger:
   - platform: event
     event_type: ios.action_fired
     event_data:
-      actionName: 'Bed Time'
+      actionName: Bed Time
   action:
     service: scene.turn_on
     entity_id: scene.night
-    
 - id: IOSLightAll
-  alias: "IOS Light All"
+  alias: IOS Light All
   initial_state: true
   trigger:
   - platform: event
     event_type: ios.action_fired
     event_data:
-      actionName: 'Lights on'
+      actionName: Lights on
   action:
     service: homeassistant.turn_on
     entity_id: group.all_lights
-    
 - id: IOSCoffeeOn
-  alias: "IOS Coffee On"
+  alias: IOS Coffee On
   initial_state: true
   trigger:
   - platform: event
     event_type: ios.action_fired
     event_data:
-      actionName: 'Coffee'
+      actionName: Coffee
   action:
     service: switch.turn_on
     entity_id: switch.coffee
-    
-    
-    
-    
-    
-    
+- id: '1576592016028'
+  alias: DisableAlarm
+  description: ''
+  trigger:
+  - entity_id: group.family
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.sector_alarm_02519706
+    state: armed
+  action:
+  - data: {}
+    service: alarm_control_panel.alarm_disarm
