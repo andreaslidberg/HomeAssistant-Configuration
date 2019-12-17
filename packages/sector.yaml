@@ -78,7 +78,7 @@ automation:
   condition:
   - condition: state
     entity_id: alarm_control_panel.sector_alarm_02519706
-    state: armed
+    state: armed_away
   action:
   - data:
       code: !secret sector_code
