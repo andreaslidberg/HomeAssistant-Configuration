@@ -213,18 +213,3 @@
   action:
     service: switch.turn_on
     entity_id: switch.coffee
-- id: '1576592016028'
-  alias: DisableAlarm
-  description: ''
-  trigger:
-  - entity_id: group.family
-    from: not_home
-    platform: state
-    to: home
-  condition:
-  - condition: state
-    entity_id: alarm_control_panel.sector_alarm_02519706
-    state: armed
-  action:
-  - data: {}
-    service: alarm_control_panel.alarm_disarm

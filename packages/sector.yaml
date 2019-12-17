@@ -67,6 +67,24 @@ automation:
       entity_id: switch.countdown
     service: switch.turn_on
 
+- id: '1576592016028'
+  alias: DisableAlarm
+  description: ''
+  trigger:
+  - entity_id: group.family
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.sector_alarm_02519706
+    state: armed
+  action:
+  - data:
+      code: !secret sector_code
+      entity_id: alarm_control_panel.sector_alarm_02519706
+    service: alarm_control_panel.alarm_disarm
+
 ##################################################################################
 # Scripts
 ##################################################################################
