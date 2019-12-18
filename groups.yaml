@@ -32,20 +32,20 @@
   family:
     name: Family
     entities:
-      - group.Andreas
-      - group.Ninni
-      - group.Enni
+      - person.Andreas
+      - person.Ninni
+      - person.Enni
       - device_tracker.Mika
   parents:
     name: Parents
     entities:
-      - group.Ninni
-      - group.Andreas
+      - person.Ninni
+      - person.Andreas
   kids:
     name: Kids
     entities:
       - device_tracker.Mika
-      - group.Enni
+      - person.Enni
 
   enni:
     name: Enni
