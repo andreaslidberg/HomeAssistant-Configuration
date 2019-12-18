@@ -34,7 +34,7 @@
     entities:
       - group.Andreas
       - group.Ninni
-      - device_tracker.Enni
+      - group.Enni
       - device_tracker.Mika
   parents:
     name: Parents
@@ -45,21 +45,25 @@
     name: Kids
     entities:
       - device_tracker.Mika
+      - group.Enni
+
+  enni:
+    name: Enni
+    entities:
       - device_tracker.Enni
-      
+      - device_tracker.Ennis_iphone
+
   andreas:
     name: Andreas
     entities:
       - device_tracker.andreas_wifi
-      - device_tracker.andreas_bt_gh1
-      - device_tracker.andreas_bt_gh2
+      - device_tracker.andreas_iphone
 
   ninni:
     name: Ninni
     entities:
       - device_tracker.ninni_wifi
-      - device_tracker.ninni_bt_gh1
-      - device_tracker.ninni_bt_gh2
+      - device_tracker.ninnis_iphone
 
       
 ### Lights ###
