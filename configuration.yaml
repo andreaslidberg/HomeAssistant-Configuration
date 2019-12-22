@@ -226,8 +226,8 @@ light:
 #            name: Använd EJ, Switch Coffee
         '0b11000101b510f602010f60':       # Nexa-plugg, knapp 2
             name: bedroom_window
-#        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3
-#            name: give_me_a_name
+        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3
+            name: christmas_tree
         '0b11000001b520f601010f60':       # Nexa-plugg, knapp 1
             name: living_room_window
         '0b11000101b520f602010f60':       # Nexa-plugg, knapp 2
@@ -360,56 +360,6 @@ switch:
     devices:
         '0b11000001b510f601010f60':
             name: coffee
-
-google_assistant:
-  project_id: !secret gh_project_id
-  api_key: !secret gh_api_key
-  exposed_domains:
-    - light
-    - scene
-  entity_config:
-    switch.countdown:
-      name: Countdown
-      expose: true
-    switch.skalskydd:
-      name: Skalskydd
-      expose: true
-    switch.coffee:
-      name: Coffee
-      expose: true
-    script.netflix:
-      name: Netflix
-      expose: true
-    script.hbo:
-      name: HBO
-      expose: true
-    script.vacuum_bedroom:
-      name: 'Städa sovrummet'
-      expose: true
-    script.vacuum_living_room:
-      name: 'Städa vardagsrummet'
-      expose: true
-    script.vacuum_dining_room:
-      name: 'Städa matsalen'
-      expose: true
-    script.vacuum_hallway:
-      name: 'Städa hallen'
-      expose: true
-    script.vacuum_kitchen:
-      name: 'Städa köket'
-      expose: true
-    script.vacuum_litterbox:
-      name: 'Städa kattlådorna'
-      expose: true
-    script.vacuum_all:
-      name: 'Städa allt'
-      expose: true
-    script.viaplay:
-      name: Viaplay
-      expose: true
-    scene.night:
-      name: night
-      expose: true
 
 # Enables iOS component for iPhone App
 ios:
