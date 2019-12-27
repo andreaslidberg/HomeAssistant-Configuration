@@ -52,7 +52,7 @@ switch:
 automation:
 - id: '1523700791768'
   alias: AlarmControl
-  initial_state: false
+  initial_state: true
   trigger:
   - entity_id: group.family
     from: home

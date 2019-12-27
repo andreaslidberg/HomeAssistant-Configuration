@@ -236,8 +236,8 @@ light:
 #            name: give_me_a_name
         '0b11000001b521f601010f60':       # Nexa-plugg, knapp 1
             name: living_room_spots
-#        '0b11000001b521f602010f60':      # Nexa-plugg, knapp 2
-#            name: give_me_a_name
+        '0b11000001b521f602010f60':      # Nexa-plugg, knapp 2
+            name: living_room_couchlights
 #        '0b11000001b521f603010f60':      # Nexa-plugg, knapp 3
 #            name: give_me_a_name
         '07100a0041010000':
