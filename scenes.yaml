@@ -8,6 +8,7 @@
         light.living_room_spots: off
         light.living_room_window: off
         light.living_room_lightbox: off
+        light.living_room_couchlights: off
         light.hallway_desk: on
         switch.coffee: off
         switch.skalskydd: on

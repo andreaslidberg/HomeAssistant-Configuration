@@ -61,10 +61,7 @@
     platform: sun
     event: sunset
     offset: -00:30:00
-  condition:
-    condition: state
-    entity_id: group.family
-    state: home
+  condition: []
   action:
     service: light.turn_on
     entity_id: light.ambience
@@ -169,7 +166,7 @@
     state: below_horizon
   action:
     service: light.turn_on
-    entity_id: light.ambience
+    entity_id: group.all_lights
 - id: '1546903575337'
   alias: ActivateHomecoming
   trigger:
