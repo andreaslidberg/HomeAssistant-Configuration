@@ -35,8 +35,14 @@ google_assistant:
     script.vacuum_kitchen:
       name: 'Städa köket'
       expose: true
+    script.vacuum_sink:
+      name: 'Städa diskbänken'
+      expose: true
     script.vacuum_litterbox:
       name: 'Städa kattlådorna'
+      expose: true
+    script.vacuum_mikas_room:
+      name: 'Städa Mikas rum'
       expose: true
     script.vacuum_all:
       name: 'Städa allt'
