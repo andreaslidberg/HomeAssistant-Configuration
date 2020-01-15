@@ -61,9 +61,10 @@ automation:
   - platform: time_pattern
     minutes: '/15'
     seconds: 0
-  condition: time
-  after: '06:00:00'
-  before: '21:55:00'
+  condition:
+    condition: time
+    after: '06:00:00'
+    before: '21:55:00'
   action:
   - service: switch.turn_on
     data:
