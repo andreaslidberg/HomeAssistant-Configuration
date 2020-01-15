@@ -10,9 +10,9 @@ switch:
 - platform: rfxtrx
   devices:
     '0b11000001b521f603010f60':      # Nexa-plugg, knapp 3
-        name: plant_light
+      name: plant_light
     '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3, 
-        name: plant_heatbed
+      name: plant_heatbed
 
 
 ##################################################################################
@@ -33,7 +33,7 @@ automation:
   alias: PlantLightsOn
   initial_state: true
   trigger:
-  - platform: time_pattern
+  - platform: time
     at: 06:00
   action:
   - service: switch.turn_on
@@ -44,7 +44,7 @@ automation:
   alias: PlantLightsOff
   initial_state: true
   trigger:
-  - platform: time_pattern
+  - platform: time
     at: 22:00
   action:
   - service: switch.turn_off
