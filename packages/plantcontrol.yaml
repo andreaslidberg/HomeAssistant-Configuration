@@ -33,8 +33,8 @@ automation:
   alias: PlantLightsOn
   initial_state: true
   trigger:
-  - platform: time
-    at: 06:00
+    platform: time
+    at: '06:00:00'
   action:
   - service: switch.turn_on
     data:
@@ -44,8 +44,8 @@ automation:
   alias: PlantLightsOff
   initial_state: true
   trigger:
-  - platform: time
-    at: 22:00
+    platform: time
+    at: '22:00:00'
   action:
   - service: switch.turn_off
     data:
