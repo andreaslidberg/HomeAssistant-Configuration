@@ -1,0 +1,79 @@
+##################################################################################
+# Automations for plants
+##################################################################################
+
+
+##################################################################################
+# Switch
+##################################################################################
+switch:
+  - platform: rfxtrx
+    automatic_add: false
+    devices:
+        '0b11000001b521f603010f60':      # Nexa-plugg, knapp 3
+            name: plant_light
+        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3, 
+            name: plant_heatbed
+
+
+##################################################################################
+# Sensors
+##################################################################################
+
+
+##################################################################################
+# Variables 
+##################################################################################
+
+
+##################################################################################
+# Automations 
+##################################################################################
+automation:
+- id: '1523700791768'
+  alias: PlantLightsOn
+  initial_state: true
+  trigger:
+  - platform: time_pattern
+    at: 06:00
+  action:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.plant_light
+
+- id: '1523700791768'
+  alias: PlantLightsOff
+  initial_state: true
+  trigger:
+  - platform: time_pattern
+    at: 22:00
+  action:
+  - service: switch.turn_off
+    data:
+      entity_id:
+      - switch.plant_light
+      - switch.plant_heatbed
+
+- id: '1576592016028'
+  alias: ToggleHeatbed
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: '/15'
+    seconds: 0
+  condition: time
+  after: '06:00:00'
+  before: '21:55:00'
+  action:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.plant_heatbed
+  - delay: '00:05:00'
+  - service: switch.turn_off
+    data:
+      entity_id: switch.plant_heatbed
+
+##################################################################################
+# Scripts
+##################################################################################
+

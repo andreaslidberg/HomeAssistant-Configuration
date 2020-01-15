@@ -226,8 +226,8 @@ light:
 #            name: Använd EJ, Switch Coffee
         '0b11000101b510f602010f60':       # Nexa-plugg, knapp 2
             name: bedroom_window
-        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3
-            name: christmas_tree
+#        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3, ANVÄND EJ, switch.plantlight
+#            name: christmas_tree
         '0b11000001b520f601010f60':       # Nexa-plugg, knapp 1
             name: living_room_window
         '0b11000101b520f602010f60':       # Nexa-plugg, knapp 2
@@ -238,8 +238,8 @@ light:
             name: living_room_spots
         '0b11000001b521f602010f60':      # Nexa-plugg, knapp 2
             name: living_room_couchlights
-        '0b11000001b521f603010f60':      # Nexa-plugg, knapp 3
-            name: plant_light
+#        '0b11000001b521f603010f60':      # Nexa-plugg, knapp 3, ANVÄND EJ, switch.plantlight
+#            name: plant_light
         '07100a0041010000':
             name: living_room
         '07100a0041020000':
