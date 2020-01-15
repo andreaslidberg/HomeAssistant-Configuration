@@ -7,13 +7,12 @@
 # Switch
 ##################################################################################
 switch:
-  - platform: rfxtrx
-    automatic_add: false
-    devices:
-        '0b11000001b521f603010f60':      # Nexa-plugg, knapp 3
-            name: plant_light
-        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3, 
-            name: plant_heatbed
+- platform: rfxtrx
+  devices:
+    '0b11000001b521f603010f60':      # Nexa-plugg, knapp 3
+        name: plant_light
+    '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3, 
+        name: plant_heatbed
 
 
 ##################################################################################
