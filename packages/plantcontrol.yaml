@@ -86,7 +86,7 @@ automation:
     data:
       entity_id: switch.plant_heatbed
   - delay: "00:{{ '%02i'%states.input_select.heatbed_delay.state | int }}:00"
-    - service: switch.turn_off
+  - service: switch.turn_off
     data:
       entity_id: switch.plant_heatbed
 
