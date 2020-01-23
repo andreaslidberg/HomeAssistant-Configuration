@@ -23,7 +23,24 @@ switch:
 ##################################################################################
 # Variables 
 ##################################################################################
-
+input_select:
+  heatbed_delay:
+    name: Värmetid (av 15 min)
+    options:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
 
 ##################################################################################
 # Automations 
@@ -68,8 +85,8 @@ automation:
   - service: switch.turn_on
     data:
       entity_id: switch.plant_heatbed
-  - delay: '00:05:00'
-  - service: switch.turn_off
+  - delay: "00:{{ '%02i'%states.input_select.heatbed_delay.state | int }}:00"
+    - service: switch.turn_off
     data:
       entity_id: switch.plant_heatbed
 

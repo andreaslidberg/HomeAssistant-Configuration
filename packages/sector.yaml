@@ -8,6 +8,7 @@ sector_alarm:
   code: !secret sector_code
   thermometers: false
   alarm_panel: true
+  version: 'auto'
 
 ##################################################################################
 # Switch
