@@ -218,8 +218,10 @@ script:
     - service: vacuum.send_command
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[17492,21101,21592,25351,1]]
+        command: app_segment_clean
+        params: [16]
+#        command: app_zoned_clean
+#        params: [[17492,21101,21592,25351,1]]
 
   vacuum_dining_room:
     alias: Städa matsalen
@@ -227,8 +229,10 @@ script:
     - service: vacuum.send_command
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[21820,21074,26120,26074,1]]
+        command: app_segment_clean
+        params: [16]
+#        command: app_zoned_clean
+#        params: [[21820,21074,26120,26074,1]]
 
   vacuum_kitchen:
     alias: Städa köket
@@ -236,8 +240,10 @@ script:
     - service: vacuum.send_command
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[28437,22992,31337,26542,1],[26451,23427,28451,24927,1]]
+        command: app_segment_clean
+        params: [19]
+#       command: app_zoned_clean
+#        params: [[28437,22992,31337,26542,1],[26451,23427,28451,24927,1]]
 
   vacuum_sink:
     alias: Städa diskbänk
@@ -245,8 +251,10 @@ script:
     - service: vacuum.send_command
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[30236,23014,31336,26514,1]]
+        command: app_segment_clean
+        params: [19]
+#        command: app_zoned_clean
+#        params: [[30236,23014,31336,26514,1]]
 
   vacuum_living_room:
     alias: Städa vardagsrummet
@@ -254,8 +262,10 @@ script:
     - service: vacuum.send_command
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[17272,26137,26022,31137,1]]
+        command: app_segment_clean
+        params: [18]
+#        command: app_zoned_clean
+#        params: [[17272,26137,26022,31137,1]]
 
   vacuum_hallway:
     alias: Städa hallen
@@ -263,8 +273,10 @@ script:
     - service: vacuum.send_command
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[26275,26612,32725,28662,1],[28353,28627,32653,29677,1]]
+        command: app_segment_clean
+        params: [20]
+#        command: app_zoned_clean
+#        params: [[26275,26612,32725,28662,1],[28353,28627,32653,29677,1]]
 
   vacuum_mikas_room:
     alias: Städa Mikas rum
@@ -272,8 +284,10 @@ script:
     - service: vacuum.send_command
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[35361,25250,35961,26300,1],[35884,22437,39284,26337,1]]
+        command: app_segment_clean
+        params: [22]
+#        command: app_zoned_clean
+#        params: [[35361,25250,35961,26300,1],[35884,22437,39284,26337,1]]
 
   vacuum_litterbox:
     alias: Städa kattlådorna
@@ -281,8 +295,10 @@ script:
     - service: vacuum.send_command
       data:
         entity_id: vacuum.xiaomi_vacuum_cleaner
-        command: app_zoned_clean
-        params: [[31976,25427,35276,26527,1]]
+        command: app_segment_clean
+        params: [21]
+#       command: app_zoned_clean
+#        params: [[31976,25427,35276,26527,1]]
 
   vacuum_all:
     alias: Städa huset
