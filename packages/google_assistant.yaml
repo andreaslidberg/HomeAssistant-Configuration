@@ -1,7 +1,15 @@
+##################################################################################
+# Base activation of Google Assistant
+##################################################################################
 google_assistant:
   project_id: !secret gh_project_id
   service_account: !include .google_assistant.json
+  report_state: true
 #  api_key: !secret gh_api_key
+
+##################################################################################
+# Expose entities
+##################################################################################
   exposed_domains:
     - light
     - scene
