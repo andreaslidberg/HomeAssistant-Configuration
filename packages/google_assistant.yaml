@@ -1,7 +1,7 @@
 google_assistant:
   project_id: !secret gh_project_id
   service_account: !include .google_assistant.json
-  api_key: !secret gh_api_key
+#  api_key: !secret gh_api_key
   exposed_domains:
     - light
     - scene
