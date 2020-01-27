@@ -1,6 +1,4 @@
-##################################################################################
-# Base activation of Sector Alarm component
-##################################################################################
+asyncsector:
 sector_alarm:
   email: !secret sector_email
   password: !secret sector_password
