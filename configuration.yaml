@@ -80,17 +80,17 @@ system_health:
 rfxtrx:
     device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433_A12IY0ZA-if00-port0
 
-#asuswrt:
-#  host: !secret asus_tracker_host
-#  protocol: telnet
-#  port: 23
-#  username: !secret asus_tracker_user
-#  password: !secret asus_tracker_pwd
-#  sensors:
-#    - upload
-#    - download
-#    - upload_speed
-#    - download_speed
+asuswrt:
+  host: !secret asus_tracker_host
+  protocol: telnet
+  port: 23
+  username: !secret asus_tracker_user
+  password: !secret asus_tracker_pwd
+  sensors:
+    - upload
+    - download
+    - upload_speed
+    - download_speed
 ##  ssh_key: /config/ssh/ssh_asus_private_key # obs, endast om SSH
 
 
