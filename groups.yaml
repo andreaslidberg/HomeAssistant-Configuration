@@ -24,9 +24,9 @@
     name: Batteries
     view: yes
     entities:
-      - sensor.andreas_iphone_battery_level
-      - sensor.ninnis_iphone_battery_level
-      - sensor.ennis_iphone_battery_level
+      - sensor.andreas_battery_level
+      - sensor.ninni_battery_level
+      - sensor.enni_battery_level
       
 ### GROUPS ###
   family:

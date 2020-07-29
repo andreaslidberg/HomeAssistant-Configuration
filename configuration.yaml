@@ -333,18 +333,18 @@ notify:
   - name: notify_parents
     platform: group
     services:
-      - service: ios_andreas_iphone
-      - service: ios_ninnis_iphone
+      - service: mobile_app_andreas_iphone
+      - service: mobile_app_ninnis_iphone
 #  - name: Notify_Kids
 #    platform: group
 #    services:
 #      - service: ennis_iphone
-#  - name: Notify_Family
-#    platform: group
-#    services:
-#      - service: andreas_iphone
-#      - service: ninnis_iphone
-#      - service: ennis_iphone
+  - name: Notify_Family
+    platform: group
+    services:
+      - service: mobile_app_andreas_iphone
+      - service: mobile_app_ninnis_iphone
+      - service: mobile_app_ennis_iphone
       
 # Cloud
 cloud:
