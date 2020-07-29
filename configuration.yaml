@@ -86,6 +86,7 @@ asuswrt:
   port: 23
   username: !secret asus_tracker_user
   password: !secret asus_tracker_pwd
+  interface: vlan2
   sensors:
     - upload
     - download
