@@ -3,8 +3,6 @@
     name: Family
     view: yes
     entities:
-      - group.parents
-      - group.kids
   scripts:
     name: Scripts
     view: yes
