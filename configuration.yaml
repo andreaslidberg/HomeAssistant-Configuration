@@ -280,7 +280,12 @@ light:
     name: living_room_lightbox
     entity_id: switch.ac_1b5892a_3
   - platform: switch
-  
+    name: living_room
+    entity_id: switch.gdr2_a1
+  - platform: switch
+    name: dining_room
+    entity_id: switch.gdr2_a2
+
   - platform: group
     name: all_windows
     entities:
