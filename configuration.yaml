@@ -256,31 +256,31 @@ rfxtrx:
     
 light:
   - platform: switch
-
     name: bedroom_window
     entity_id: switch.ac_1b510f6_2
-
+  - platform: switch
     name: living_room_window
     entity_id: switch.ac_1b520f6_1
-
+  - platform: switch
     name: hallway_desk
     entity_id: switch.ac_1b520f6_2
-
+  - platform: switch
     name: living_room_spots
     entity_id: switch.ac_1b521f6_1
-
+  - platform: switch
     name: living_room_couchlights
     entity_id: switch.ac_1b521f6_2
-
+  - platform: switch
     name: dining_room_window
     entity_id: switch.ac_1b5892a_1
-
+  - platform: switch
     name: enni_window
     entity_id: switch.ac_1b5892a_2
-
+  - platform: switch
     name: living_room_lightbox
     entity_id: switch.ac_1b5892a_3
-
+  - platform: switch
+  
   - platform: group
     name: all_windows
     entities:
