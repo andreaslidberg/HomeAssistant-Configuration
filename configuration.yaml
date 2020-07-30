@@ -157,8 +157,8 @@ weather:
     mode: daily
 
 sensor:
-  - platform: rfxtrx
-    automatic_add: false
+#  - platform: rfxtrx
+#    automatic_add: false
 #  - platform: darksky
 #    api_key: !secret darksky_apikey
 #    language: sv
@@ -225,6 +225,11 @@ rfxtrx:
         '0b11000201b5892a03010f60':       # Nexa-plugg, knapp 3
         # coffee
         '0b11000001b510f601010f60':
+        # plant_light
+        '0b11000001b521f603010f60':      # Nexa-plugg, knapp 3
+        # plant_heatbed
+        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3, 
+
 #        '0b11000101b510f601010f60':      # ANVÄNVD EJ, switch coffee
 #            name: Använd EJ, Switch Coffee
 #        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3, ANVÄND EJ, switch.plantlight
@@ -276,7 +281,31 @@ light:
     name: living_room_lightbox
     entity_id: switch.ac_1b5892a_3
 
-
+  - platform: group
+    name: all_windows
+    entities:
+      - light.living_room_window
+      - light.bedroom_window
+      - light.dining_room_window
+      - light.hallway_desk
+      - light.enni_window
+  - platform: group
+    name: ambience
+    entities:
+      - light.living_room_window
+      - light.bedroom_window
+      - light.dining_room_window
+      - light.hallway_desk
+      - light.enni_window
+      - light.living_room_lightbox
+  - platform: group
+    name: window_lights
+    entities:
+      - light.enni_window
+      - light.bedroom_window
+      - light.living_room_window
+      - light.dining_room_window
+      - light.hallway_desk
 
 ##        '0b11000101b510f601010f60':      # ANVÄNVD EJ, switch coffee
 ##            name: Använd EJ, Switch Coffee
@@ -307,31 +336,8 @@ light:
 #        '0b11000201b5892a03010f60':       # Nexa-plugg, knapp 3
 #            name: living_room_lightbox
 
-  - platform: group
-    name: all_windows
-    entities:
-      - light.living_room_window
-      - light.bedroom_window
-      - light.dining_room_window
-      - light.hallway_desk
-      - light.enni_window
-  - platform: group
-    name: ambience
-    entities:
-      - light.living_room_window
-      - light.bedroom_window
-      - light.dining_room_window
-      - light.hallway_desk
-      - light.enni_window
-      - light.living_room_lightbox
-  - platform: group
-    name: window_lights
-    entities:
-      - light.enni_window
-      - light.bedroom_window
-      - light.living_room_window
-      - light.dining_room_window
-      - light.hallway_desk
+
+
 
 # Presence Tracking
 mikrotik:
@@ -410,13 +416,6 @@ group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
-
-#switch:
-#  - platform: rfxtrx
-#    automatic_add: false
-#    devices:
-#        '0b11000001b510f601010f60':
-#            name: coffee
 
 # Enables iOS component for iPhone App
 ios:
