@@ -21,7 +21,7 @@ google_assistant:
       name: Skalskydd
       expose: true
     switch.ac_1b510f6_1:
-      name: Coffee
+      name: Kaffebryggaren
       expose: true
     script.netflix:
       name: Netflix
