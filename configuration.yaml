@@ -281,31 +281,31 @@ rfxtrx:
 #        '0b11000201b5892a03010f60':       # Nexa-plugg, knapp 3
 #            name: living_room_lightbox
 
-  - platform: group
-    name: all_windows
-    entities:
-      - light.living_room_window
-      - light.bedroom_window
-      - light.dining_room_window
-      - light.hallway_desk
-      - light.enni_window
-  - platform: group
-    name: ambience
-    entities:
-      - light.living_room_window
-      - light.bedroom_window
-      - light.dining_room_window
-      - light.hallway_desk
-      - light.enni_window
-      - light.living_room_lightbox
-  - platform: group
-    name: window_lights
-    entities:
-      - light.enni_window
-      - light.bedroom_window
-      - light.living_room_window
-      - light.dining_room_window
-      - light.hallway_desk
+#  - platform: group
+#    name: all_windows
+#    entities:
+#      - light.living_room_window
+#      - light.bedroom_window
+#      - light.dining_room_window
+#      - light.hallway_desk
+#      - light.enni_window
+#  - platform: group
+#    name: ambience
+#    entities:
+#      - light.living_room_window
+#      - light.bedroom_window
+#      - light.dining_room_window
+#      - light.hallway_desk
+#      - light.enni_window
+#      - light.living_room_lightbox
+#  - platform: group
+#    name: window_lights
+#    entities:
+#      - light.enni_window
+#      - light.bedroom_window
+#      - light.living_room_window
+#      - light.dining_room_window
+#      - light.hallway_desk
 
 # Presence Tracking
 mikrotik:
@@ -361,21 +361,21 @@ tts:
   
 # notifications
 notify:
-  - name: notify_parents
-    platform: group
-    services:
-      - service: mobile_app_andreas_iphone
-      - service: mobile_app_ninnis_iphone
-#  - name: Notify_Kids
+#  - name: notify_parents
 #    platform: group
 #    services:
-#      - service: ennis_iphone
-  - name: Notify_Family
-    platform: group
-    services:
-      - service: mobile_app_andreas_iphone
-      - service: mobile_app_ninnis_iphone
-      - service: mobile_app_ennis_iphone
+#      - service: mobile_app_andreas_iphone
+#      - service: mobile_app_ninnis_iphone
+##  - name: Notify_Kids
+##    platform: group
+##    services:
+##      - service: ennis_iphone
+#  - name: Notify_Family
+#    platform: group
+#    services:
+#      - service: mobile_app_andreas_iphone
+#      - service: mobile_app_ninnis_iphone
+#      - service: mobile_app_ennis_iphone
       
 # Cloud
 cloud:
