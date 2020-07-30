@@ -249,10 +249,35 @@ rfxtrx:
 #      '09190603010101110000':   #Device ID i RfxMgmt: 01 01 01 01 01 1
 #        name: blinds
     
-#light:
-#  - platform: rfxtrx
-#    automatic_add: false
-#    devices:
+light:
+  - platform: switch
+
+    name: bedroom_window
+    entity_id: switch.ac_1b510f6_2
+
+    name: living_room_window
+    entity_id: switch.ac_1b520f6_1
+
+    name: hallway_desk
+    entity_id: switch.ac_1b520f6_2
+
+    name: living_room_spots
+    entity_id: switch.ac_1b521f6_1
+
+    name: living_room_couchlights
+    entity_id: switch.ac_1b521f6_2
+
+    name: dining_room_window
+    entity_id: switch.ac_1b5892a_1
+
+    name: enni_window
+    entity_id: switch.ac_1b5892a_2
+
+    name: living_room_lightbox
+    entity_id: switch.ac_1b5892a_3
+
+
+
 ##        '0b11000101b510f601010f60':      # ANVÄNVD EJ, switch coffee
 ##            name: Använd EJ, Switch Coffee
 #        '0b11000101b510f602010f60':       # Nexa-plugg, knapp 2
