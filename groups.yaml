@@ -1,11 +1,11 @@
 ### VIEWS ###
   family_view:
     name: Family
-    view: yes
+#    view: yes
     entities:
   scripts:
     name: Scripts
-    view: yes
+ #   view: yes
     entities:
       - script.countdown
       - script.hbo
@@ -15,12 +15,12 @@
       - script.skalskydd_off
   scenes:
     name: Scenes
-    view: yes
+ #   view: yes
     entities:
       - scene.night
   batteries:
     name: Batteries
-    view: yes
+#    view: yes
     entities:
       - sensor.andreas_battery_level
       - sensor.ninni_battery_level
