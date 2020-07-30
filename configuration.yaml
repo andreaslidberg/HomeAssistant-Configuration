@@ -223,7 +223,8 @@ rfxtrx:
         '0b11000101b5892a02010f60':       # Nexa-plugg, knapp 2
         # living_room_lightbox
         '0b11000201b5892a03010f60':       # Nexa-plugg, knapp 3
-
+        # coffee
+        '0b11000001b510f601010f60':
 #        '0b11000101b510f601010f60':      # ANVÄNVD EJ, switch coffee
 #            name: Använd EJ, Switch Coffee
 #        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3, ANVÄND EJ, switch.plantlight
@@ -385,12 +386,12 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
-switch:
-  - platform: rfxtrx
-    automatic_add: false
-    devices:
-        '0b11000001b510f601010f60':
-            name: coffee
+#switch:
+#  - platform: rfxtrx
+#    automatic_add: false
+#    devices:
+#        '0b11000001b510f601010f60':
+#            name: coffee
 
 # Enables iOS component for iPhone App
 ios:
