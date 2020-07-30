@@ -20,7 +20,7 @@ google_assistant:
     switch.skalskydd:
       name: Skalskydd
       expose: true
-    switch.coffee:
+    switch.ac_1b510f6_1:
       name: Coffee
       expose: true
     script.netflix:

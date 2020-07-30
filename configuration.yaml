@@ -398,15 +398,15 @@ tts:
   
 # notifications
 notify:
-#  - name: notify_parents
-#    platform: group
-#    services:
-#      - service: mobile_app_andreas_iphone
-#      - service: mobile_app_ninnis_iphone
-##  - name: Notify_Kids
-##    platform: group
-##    services:
-##      - service: ennis_iphone
+  - name: notify_parents
+    platform: group
+    services:
+      - service: mobile_app_andreas_iphone
+      - service: mobile_app_ninnis_iphone
+  - name: Notify_Kids
+    platform: group
+    services:
+      - service: ennis_iphone
 #  - name: Notify_Family
 #    platform: group
 #    services:
