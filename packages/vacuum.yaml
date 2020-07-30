@@ -140,7 +140,7 @@ automation:
 # Zone Cleaning, started through Select Box 
 - id: 'ZoneCleaning'
   alias: Start Cleaning Room
-  hide_entity: True
+#  hide_entity: True
   trigger:
   - platform: state
     entity_id: input_select.vacuum_room

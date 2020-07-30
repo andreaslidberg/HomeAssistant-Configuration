@@ -77,9 +77,6 @@ http:
 updater:
 system_health:
 
-rfxtrx:
-    device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433_A12IY0ZA-if00-port0
-
 asuswrt:
   host: !secret asus_tracker_host
   protocol: telnet
@@ -133,14 +130,12 @@ zone:
     longitude: !secret zone_school_longitude
     radius: 200
     icon: mdi:school
-    hidden: false
     
   - name: NinniWork
     latitude: !secret zone_ninni_latitude
     longitude: !secret zone_ninni_longitude
     radius: 100
     icon: mdi:briefcase
-    hidden: false
     
   - name: AnteWork
     latitude: !secret zone_ante_latitude
@@ -204,53 +199,88 @@ sensor:
         - wind_direction_text
         - wind_speed
 
-binary_sensor:
-  platform: rfxtrx
-  automatic_add: false
-  devices:
-    '071001014d090140':
-      name: experimental
 
-cover:
-  - platform: rfxtrx
-    automatic_add: true
-#    signal_repetitions: 8
+rfxtrx:
+    device: /dev/serial/by-id/usb-RFXCOM_RFXtrx433_A12IY0ZA-if00-port0
     devices:
-      '09190603010101110000':   #Device ID i RfxMgmt: 01 01 01 01 01 1
-        name: blinds
-    
-light:
-  - platform: rfxtrx
-    automatic_add: false
-    devices:
+        # bedroom_window
+        '0b11000101b510f602010f60':       # Nexa-plugg, knapp 2
+        # living_room_window
+        '0b11000001b520f601010f60':       # Nexa-plugg, knapp 1
+        # hallway_desk
+        '0b11000101b520f602010f60':       # Nexa-plugg, knapp 2
+        # living_room_spots
+        '0b11000001b521f601010f60':       # Nexa-plugg, knapp 1
+        # living_room_couchlights
+        '0b11000001b521f602010f60':      # Nexa-plugg, knapp 2
+        # living_room
+        '07100a0041010000':
+        # dining_room
+        '07100a0041020000':
+        # dining_room_window
+        '0b11000001b5892a01010f60':       # Nexa-plugg, knapp 1
+        # enni_window
+        '0b11000101b5892a02010f60':       # Nexa-plugg, knapp 2
+        # living_room_lightbox
+        '0b11000201b5892a03010f60':       # Nexa-plugg, knapp 3
+
 #        '0b11000101b510f601010f60':      # ANVÄNVD EJ, switch coffee
 #            name: Använd EJ, Switch Coffee
-        '0b11000101b510f602010f60':       # Nexa-plugg, knapp 2
-            name: bedroom_window
 #        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3, ANVÄND EJ, switch.plantlight
 #            name: christmas_tree
-        '0b11000001b520f601010f60':       # Nexa-plugg, knapp 1
-            name: living_room_window
-        '0b11000101b520f602010f60':       # Nexa-plugg, knapp 2
-            name: hallway_desk
-#        '0b11000101b520f603010f60':      # Nexa-plugg, knapp 3
-#            name: give_me_a_name
-        '0b11000001b521f601010f60':       # Nexa-plugg, knapp 1
-            name: living_room_spots
-        '0b11000001b521f602010f60':      # Nexa-plugg, knapp 2
-            name: living_room_couchlights
 #        '0b11000001b521f603010f60':      # Nexa-plugg, knapp 3, ANVÄND EJ, switch.plantlight
 #            name: plant_light
-        '07100a0041010000':
-            name: living_room
-        '07100a0041020000':
-            name: dining_room
-        '0b11000001b5892a01010f60':       # Nexa-plugg, knapp 1
-            name: dining_room_window
-        '0b11000101b5892a02010f60':       # Nexa-plugg, knapp 2
-            name: enni_window
-        '0b11000201b5892a03010f60':       # Nexa-plugg, knapp 3
-            name: living_room_lightbox
+#        '0b11000101b520f603010f60':      # Nexa-plugg, knapp 3
+#            name: give_me_a_name
+
+#binary_sensor:
+#  platform: rfxtrx
+#  automatic_add: false
+#  devices:
+#    '071001014d090140':
+#      name: experimental
+
+#cover:
+#  - platform: rfxtrx
+#    automatic_add: true
+##    signal_repetitions: 8
+#    devices:
+#      '09190603010101110000':   #Device ID i RfxMgmt: 01 01 01 01 01 1
+#        name: blinds
+    
+#light:
+#  - platform: rfxtrx
+#    automatic_add: false
+#    devices:
+##        '0b11000101b510f601010f60':      # ANVÄNVD EJ, switch coffee
+##            name: Använd EJ, Switch Coffee
+#        '0b11000101b510f602010f60':       # Nexa-plugg, knapp 2
+#            name: bedroom_window
+##        '0b11000101b510f603010f60':      # Nexa-plugg, knapp 3, ANVÄND EJ, switch.plantlight
+##            name: christmas_tree
+#        '0b11000001b520f601010f60':       # Nexa-plugg, knapp 1
+#            name: living_room_window
+#        '0b11000101b520f602010f60':       # Nexa-plugg, knapp 2
+#            name: hallway_desk
+##        '0b11000101b520f603010f60':      # Nexa-plugg, knapp 3
+##            name: give_me_a_name
+#        '0b11000001b521f601010f60':       # Nexa-plugg, knapp 1
+#            name: living_room_spots
+#        '0b11000001b521f602010f60':      # Nexa-plugg, knapp 2
+#            name: living_room_couchlights
+##        '0b11000001b521f603010f60':      # Nexa-plugg, knapp 3, ANVÄND EJ, switch.plantlight
+##            name: plant_light
+#        '07100a0041010000':
+#            name: living_room
+#        '07100a0041020000':
+#            name: dining_room
+#        '0b11000001b5892a01010f60':       # Nexa-plugg, knapp 1
+#            name: dining_room_window
+#        '0b11000101b5892a02010f60':       # Nexa-plugg, knapp 2
+#            name: enni_window
+#        '0b11000201b5892a03010f60':       # Nexa-plugg, knapp 3
+#            name: living_room_lightbox
+
   - platform: group
     name: all_windows
     entities:
@@ -280,19 +310,19 @@ light:
 # Presence Tracking
 mikrotik:
 # AP i Hallen
-  - host: !secret tracker_host1
+  - name: Hallen
+    host: !secret tracker_host1
     username: !secret tracker_user
     password: !secret tracker_pwd
-    login_method: plain
-    track_devices: true
+#    track_devices: true
 # AP i Xboxrummet    
-  - host: !secret tracker_host2
+  - name: Xboxrum
+    host: !secret tracker_host2
     username: !secret tracker_user
     password: !secret tracker_pwd
-    login_method: plain
-    track_devices: true
+#    track_devices: true
 
-device_tracker:
+#device_tracker:
 # AP i Hallen
 #  - platform: mikrotik
 #    host: !secret tracker_host1
