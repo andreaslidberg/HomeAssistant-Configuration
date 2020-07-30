@@ -307,31 +307,31 @@ light:
 #        '0b11000201b5892a03010f60':       # Nexa-plugg, knapp 3
 #            name: living_room_lightbox
 
-#  - platform: group
-#    name: all_windows
-#    entities:
-#      - light.living_room_window
-#      - light.bedroom_window
-#      - light.dining_room_window
-#      - light.hallway_desk
-#      - light.enni_window
-#  - platform: group
-#    name: ambience
-#    entities:
-#      - light.living_room_window
-#      - light.bedroom_window
-#      - light.dining_room_window
-#      - light.hallway_desk
-#      - light.enni_window
-#      - light.living_room_lightbox
-#  - platform: group
-#    name: window_lights
-#    entities:
-#      - light.enni_window
-#      - light.bedroom_window
-#      - light.living_room_window
-#      - light.dining_room_window
-#      - light.hallway_desk
+  - platform: group
+    name: all_windows
+    entities:
+      - light.living_room_window
+      - light.bedroom_window
+      - light.dining_room_window
+      - light.hallway_desk
+      - light.enni_window
+  - platform: group
+    name: ambience
+    entities:
+      - light.living_room_window
+      - light.bedroom_window
+      - light.dining_room_window
+      - light.hallway_desk
+      - light.enni_window
+      - light.living_room_lightbox
+  - platform: group
+    name: window_lights
+    entities:
+      - light.enni_window
+      - light.bedroom_window
+      - light.living_room_window
+      - light.dining_room_window
+      - light.hallway_desk
 
 # Presence Tracking
 mikrotik:
@@ -349,7 +349,7 @@ mikrotik:
 #    track_devices: true
 
 #device_tracker:
-# AP i Hallen
+## AP i Hallen
 #  - platform: mikrotik
 #    host: !secret tracker_host1
 #    username: !secret tracker_user
@@ -358,7 +358,7 @@ mikrotik:
 #    interval_seconds: 10
 #    consider_home: 180
 #    track_new_devices: no
-# AP i Xboxrummet    
+## AP i Xboxrummet    
 #  - platform: mikrotik
 #    host: !secret tracker_host2
 #    username: !secret tracker_user
@@ -367,12 +367,12 @@ mikrotik:
 #    interval_seconds: 10
 #    consider_home: 180
 #    track_new_devices: no
-# ASUS Router
+## ASUS Router
 #  - platform: asuswrt
 #    interval_seconds: 10
 #    consider_home: 180
 #    track_new_devices: no
-# Google Home Trackers
+## Google Home Trackers
 #  - platform: googlehome
 #    host: 192.168.0.61
 #    rssi_threshold: -90
