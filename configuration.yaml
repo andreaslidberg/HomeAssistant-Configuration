@@ -77,18 +77,18 @@ http:
 updater:
 system_health:
 
-asuswrt:
-  host: !secret asus_tracker_host
-  protocol: telnet
-  port: 23
-  username: !secret asus_tracker_user
-  password: !secret asus_tracker_pwd
+#asuswrt:
+#  host: !secret asus_tracker_host
+#  protocol: telnet
+#  port: 23
+#  username: !secret asus_tracker_user
+#  password: !secret asus_tracker_pwd
 ##  interface: vlan2
-  sensors:
-    - upload
-    - download
-    - upload_speed
-    - download_speed
+#  sensors:
+#    - upload
+#    - download
+#    - upload_speed
+#    - download_speed
 ##  ssh_key: /config/ssh/ssh_asus_private_key # obs, endast om SSH
 
 

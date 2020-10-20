@@ -1,7 +1,7 @@
 - id: Weekday_morning
   alias: Weekday morning
   trigger:
-  - at: 06:45
+  - at: 06:15
     platform: time
   condition:
   - condition: time
@@ -19,6 +19,7 @@
   - data:
       entity_id: light.ambience
     service: homeassistant.turn_off
+  mode: single
 - id: Weekend_morning
   alias: Weekend morning
   trigger:
@@ -115,44 +116,48 @@
 - id: '1534964000830'
   alias: Coffee_Off
   trigger:
-    platform: state
-    entity_id: switch.coffee
+  - entity_id: switch.ac_1b510f6_1
     from: 'off'
+    platform: state
     to: 'on'
   condition: []
   action:
   - delay: 01:30:00
-  - service: switch.turn_off
-    data:
+  - data:
       entity_id: switch.coffee
+    entity_id: switch.ac_1b510f6_1
+    service: switch.turn_off
+  mode: single
 - id: ios_notif_test
   alias: Notify iOS app
   trigger:
-    platform: state
-    entity_id: switch.coffee
+  - entity_id: switch.ac_1b510f6_1
     from: 'off'
+    platform: state
     to: 'on'
   action:
-  - service: notify.notify_parents
-    data:
-      message: Kaffeapparaten har startat
+  - data:
       data:
         push:
           badge: 5
+      message: Kaffeapparaten har startat
+    service: notify.notify_parents
+  mode: single
 - id: ios_group_test
   alias: Notify iOS group
   trigger:
-    platform: state
-    entity_id: switch.coffee
+  - entity_id: switch.ac_1b510f6_1
     from: 'on'
+    platform: state
     to: 'off'
   action:
-  - service: notify.notify_parents
-    data:
-      message: Kaffeapparaten har stängts av
+  - data:
       data:
         push:
           badge: 5
+      message: Kaffeapparaten har stängts av
+    service: notify.notify_parents
+  mode: single
 - id: '1544627025802'
   alias: Hemkomst
   trigger:
@@ -179,15 +184,16 @@
     service: automation.turn_on
 - id: IOSActivateNight
   alias: IOS Activate Night
-  initial_state: true
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
+  - event_data:
       actionName: Bed Time
+    event_type: ios.action_fired
+    platform: event
   action:
+  - entity_id: scene.night
     service: scene.turn_on
-    entity_id: scene.night
+  initial_state: true
+  mode: single
 - id: IOSLightAll
   alias: IOS Light All
   initial_state: true
@@ -201,12 +207,13 @@
     entity_id: group.all_lights
 - id: IOSCoffeeOn
   alias: IOS Coffee On
-  initial_state: true
   trigger:
-  - platform: event
-    event_type: ios.action_fired
-    event_data:
+  - event_data:
       actionName: Coffee
+    event_type: ios.action_fired
+    platform: event
   action:
+  - entity_id: switch.ac_1b510f6_1
     service: switch.turn_on
-    entity_id: switch.coffee
+  initial_state: true
+  mode: single
