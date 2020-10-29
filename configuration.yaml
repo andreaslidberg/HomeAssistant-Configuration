@@ -56,17 +56,8 @@ recorder:
 # Enables the frontend
 frontend:
 
-# Enable configurator plugin in menu
-#panel_iframe:
-#  configurator:
-#    title: Configurator
-#    icon: mdi:wrench
-#    url: !secret configurator_url
-
 # Enables configuration UI
 config:
-
-
 
 http:
 #  api_password: !secret api_password
@@ -76,22 +67,6 @@ http:
 
 updater:
 system_health:
-
-#asuswrt:
-#  host: !secret asus_tracker_host
-#  protocol: telnet
-#  port: 23
-#  username: !secret asus_tracker_user
-#  password: !secret asus_tracker_pwd
-##  interface: vlan2
-#  sensors:
-#    - upload
-#    - download
-#    - upload_speed
-#    - download_speed
-##  ssh_key: /config/ssh/ssh_asus_private_key # obs, endast om SSH
-
-
 
 # Discover some devices automatically
 discovery:
@@ -204,7 +179,16 @@ sensor:
         friendly_name: "Avg Latency"
         unit_of_measurement: "milliseconds"
         value_template: "{{ state_attr('binary_sensor.internetlatency', 'round_trip_time_avg') }}"
-
+  - platform: qnap
+    host: 192.168.0.10
+    port: 8080
+    username: !secret qnap_user
+    password: !secret qnap_password
+    monitored_conditions:
+      - status
+      - cpu_usage
+      - volume_percentage_used
+      - drive_smart_status
 
 
 rfxtrx:
@@ -384,38 +368,7 @@ mikrotik:
     password: !secret tracker_pwd
 #    track_devices: true
 
-#device_tracker:
-## AP i Hallen
-#  - platform: mikrotik
-#    host: !secret tracker_host1
-#    username: !secret tracker_user
-#    password: !secret tracker_pwd
-#    login_method: plain
-#    interval_seconds: 10
-#    consider_home: 180
-#    track_new_devices: no
-## AP i Xboxrummet    
-#  - platform: mikrotik
-#    host: !secret tracker_host2
-#    username: !secret tracker_user
-#    password: !secret tracker_pwd
-#    login_method: plain
-#    interval_seconds: 10
-#    consider_home: 180
-#    track_new_devices: no
-## ASUS Router
-#  - platform: asuswrt
-#    interval_seconds: 10
-#    consider_home: 180
-#    track_new_devices: no
-## Google Home Trackers
-#  - platform: googlehome
-#    host: 192.168.0.61
-#    rssi_threshold: -90
-#  - platform: googlehome
-#    host: 192.168.0.62
-#    rssi_threshold: -90
-    
+
 # Text to speech
 tts:
   - platform: google_translate
