@@ -198,6 +198,13 @@ sensor:
         - precipitation
         - wind_direction_text
         - wind_speed
+  - platform: template
+    sensors:
+      avg_internet_latency:
+        friendly_name: "Avg Latency"
+        unit_of_measurement: "milliseconds"
+        value_template: "{{ state_attr('binary_sensor.internetlatency', 'round_trip_time_avg') }}"
+
 
 
 rfxtrx:
