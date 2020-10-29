@@ -253,7 +253,13 @@ rfxtrx:
 #    devices:
 #      '09190603010101110000':   #Device ID i RfxMgmt: 01 01 01 01 01 1
 #        name: blinds
-    
+
+binary_sensor:
+  - platform: ping
+    host: 8.8.8.8
+    count: 5
+    name: internetlatency
+
 light:
   - platform: switch
     name: bedroom_window
