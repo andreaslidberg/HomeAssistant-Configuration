@@ -68,11 +68,12 @@ automation:
   - service: switch.turn_off
     data:
       entity_id:
-      - switch.switch.ac_1b521f6_3
+      - switch.ac_1b521f6_3
       - switch.plant_heatbed
 
 - id: 'automation_plantheatbed'
   alias: ToggleHeatbed
+  initial_state: false
   description: ''
   trigger:
   - platform: time_pattern
