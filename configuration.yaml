@@ -125,11 +125,13 @@ zone:
     icon: mdi:heart
 
 # Weather prediction
-weather:
-  - platform: darksky
-    api_key: !secret darksky_apikey
-    units: si
-    mode: daily
+#weather:
+#  - platform: darksky
+#    api_key: !secret darksky_apikey
+#    units: si
+#    mode: daily
+
+
 
 sensor:
 #  - platform: rfxtrx
